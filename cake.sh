@@ -4,7 +4,7 @@
 
 ### Interfaces ###
 
-## Go to "Network -> Interfaces" and write the name of the "device" used for the 'WAN' interface.
+## Red -> Interfaces" y escriba el nombre del "dispositivo" utilizado para la interfaz 'WAN'.
 WAN="wan"  # Example: eth0, eth0.2, eth1, eth1.2, wan, etc.
 
 
@@ -13,29 +13,29 @@ WAN="wan"  # Example: eth0, eth0.2, eth1, eth1.2, wan, etc.
 
 ### CAKE settings ###
 
-BANDWIDTH_DOWN="340"  # Change this to about 80-95% of your download speed (in megabits).
-BANDWIDTH_UP="50"     # Change this to about 80-95% of your upload speed (in megabits).
-                      # Do a Speed Test: https://www.speedtest.net/
-                      # Not recommendable: Write "0" in "BANDWIDTH_DOWN" or "BANDWIDTH_UP" to use 'CAKE' with no limit on the bandwidth ('unlimited' parameter).
-                      # Not recommendable: Don't write anything in "BANDWIDTH_DOWN" or "BANDWIDTH_UP" to disable 'shaping' on ingress or egress.
-
+BANDWIDTH_DOWN="340"  # Cambie esto a aproximadamente el 80-95% de su velocidad de descarga (en megabits).
+BANDWIDTH_UP="50"     # Cambie esto a aproximadamente el 80-95 % de su velocidad de carga (en megabits).
+                      # Hacer una prueba de velocidad: https://www.speedtest.net/
+                      # No recomendable: Escribe "0" en "BANDWIDTH_DOWN" o "BANDWIDTH_UP" para usar 'CAKE' sin límite de ancho de banda (parámetro 'ilimitado').
+                      # No recomendable: no escriba nada en "BANDWIDTH_DOWN" o "BANDWIDTH_UP" para deshabilitar la "formación" en la entrada o salida.
+                      
 AUTORATE_INGRESS="no"  # Write: "yes" | "no"
-                       # Enable CAKE automatic rate estimation for ingress.
-                       # For it to work you need to write your bandwidth in "BANDWIDTH_DOWN" to specify an initial estimate.
-                       # This is most likely to be useful with "cellular links", which tend to change quality randomly.
-                       # If you don't have "cellular link", you should never use this option.
+                       # Habilite la estimación automática de tasa de CAKE para el ingreso
+                       # Para que funcione necesitas escribir tu ancho de banda en "BANDWIDTH_DOWN" para especificar una estimación inicial.
+                       # Es muy probable que esto resulte útil con los "enlaces celulares", que tienden a cambiar la calidad de forma aleatoria.
+                       # Si no tienes "enlace celular", nunca debes usar esta opción.
 
-## Make sure you set these parameters correctly for your connection type or don't write any value and use a presets or keywords below.
-OVERHEAD=""           # Write values between "-64" and "256"
-MPU=""                # Write values between "0" and "256"
-LINK_COMPENSATION=""  # Write: "atm" | "ptm" | "noatm"
-                      # These values overwrite the presets or keyboards below.
+## Asegúrese de configurar estos parámetros correctamente para su tipo de conexión o no escriba ningún valor y utilice ajustes preestablecidos o palabras clave a continuación.
+OVERHEAD=""           # Escribe valores entre "-64" y "256"
+MPU=""                # Escribe valores entre "0" y "256"
+LINK_COMPENSATION=""  # Escribe: "atm" | "ptm" | "noatm"
+                      # Estos valores sobrescriben los ajustes preestablecidos o teclados a continuación.
                       # Read: https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm#configuring_sqm
                       # Read: https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm-details#sqmlink_layer_adaptation_tab
 
-## Only use these presets or keywords if you don't write a value above in "OVERHEAD", "MPU" and "LINK_COMPENSATION".
-COMMON_LINK_PRESETS="conservative"  # Write the keyword below:
-                                    # "raw"              Failsafe     (Turns off all overhead compensation)
+## Utilice estos ajustes preestablecidos o palabras clave solo si no escribe un valor arriba en "OVERHEAD" (gastos generales), "MPU" y "LINK_COMPENSATION".
+COMMON_LINK_PRESETS="conservative"  # Escriba la palabra clave a continuación:
+                                    # "raw"              Failsafe     (Desactiva toda compensación de gastos generales)
                                     # "conservative"     Failsafe     (overhead 48 - atm)
                                     # "ethernet"         Ethernet     (overhead 38 - mpu 84 - noatm)
                                     # "docsis"           Cable Modem  (overhead 18 - mpu 64 - noatm)
@@ -49,14 +49,14 @@ COMMON_LINK_PRESETS="conservative"  # Write the keyword below:
                                     # "bridged-llcsnap"  ADSL         (overhead 32 - atm)
                                     # "ipoa-vcmux"       ADSL         (overhead 8  - atm)
                                     # "ipoa-llcsnap"     ADSL         (overhead 16 - atm)
-                                    # If you are unsure, then write "conservative" as a general safe value.
-                                    # These keywords have been provided to represent a number of common link technologies.
+                                    # Si no está seguro, escriba "conservative" como valor seguro general.
+                                    # Estas palabras clave se han proporcionado para representar una serie de tecnologías de enlaces comunes.
                                     ######################################################################################
-                                    # For true ATM links (ADSL), one often can measure the real per-packet overhead empirically,
-                                    # see: https://github.com/moeller0/ATM_overhead_detector for further information how to do that.
+                                    # Para enlaces ATM verdaderos (ADSL), a menudo se puede medir empíricamente la sobrecarga real por paquete.,
+                                    # see: https://github.com/moeller0/ATM_overhead_detector para más información cómo hacerlo.
 
-## This keyword is not for standalone use, but act as a modifier to some previous presets or keywords.
-ETHER_VLAN_KEYWORD=""  # Write values between "1" and "3" or don't write any value.
+## Esta palabra clave no es para uso independiente, pero actúa como modificador de algunas palabras clave o ajustes preestablecidos anteriores.
+ETHER_VLAN_KEYWORD=""  # Escribe valores entre "1" y "3" o no escribas ningún valor.
                        # In addition to those previous presets or keywords it is common to have VLAN tags (4 extra bytes) or PPPoE encapsulation (8 extra bytes).
                        # "1" Adds '4 bytes' to the overhead  (ether-vlan)
                        # "2" Adds '8 bytes' to the overhead  (ether-vlan ether-vlan)
@@ -748,19 +748,19 @@ case $DSCP_GAMING in
     *) DSCP_GAMING="$(printf "%s\n" "$DSCP_GAMING" | awk '{print tolower($0)}')" > /dev/null 2>&1 ;;
 esac
 
-## DSCP value for "other ports"
+## Valor DSCP para "otros puertos"
 case $DSCP_OTHER_PORTS in
     "") DSCP_OTHER_PORTS="cs0" ;;
     *) DSCP_OTHER_PORTS="$(printf "%s\n" "$DSCP_OTHER_PORTS" | awk '{print tolower($0)}')" > /dev/null 2>&1 ;;
 esac
 
-## DSCP value for "other static IP addresses"
+## Valor DSCP para "otras direcciones IP estáticas"
 case $DSCP_OTHER_STATIC_IP in
     "") DSCP_OTHER_STATIC_IP="cs0" ;;
     *) DSCP_OTHER_STATIC_IP="$(printf "%s\n" "$DSCP_OTHER_STATIC_IP" | awk '{print tolower($0)}')" > /dev/null 2>&1 ;;
 esac
 
-## Known rules
+## Reglas conocidas
 case $BROADCAST_VIDEO in
     yes) BROADCAST_VIDEO="yes" ;;
     *) BROADCAST_VIDEO="no" ;;
@@ -782,19 +782,19 @@ case $TELEPHONY in
     *) TELEPHONY="no" ;;
 esac
 
-## Comments for the rules
+## Comentarios para las reglas
 DSCP_ICMP_COMMENT="$(printf "%s\n" "$DSCP_ICMP" | awk '{print toupper($0)}')" > /dev/null 2>&1
 DSCP_GAMING_COMMENT="$(printf "%s\n" "$DSCP_GAMING" | awk '{print toupper($0)}')" > /dev/null 2>&1
 DSCP_OTHER_PORTS_COMMENT="$(printf "%s\n" "$DSCP_OTHER_PORTS" | awk '{print toupper($0)}')" > /dev/null 2>&1
 DSCP_OTHER_STATIC_IP_COMMENT="$(printf "%s\n" "$DSCP_OTHER_STATIC_IP" | awk '{print toupper($0)}')" > /dev/null 2>&1
 
-## Automatically add the IPv6 address
+## Agregar automáticamente la dirección IPv6
 IPV6_ADDRESS="$(printf "%.16s\n" "$(uci -q get network.globals.ula_prefix)")" > /dev/null 2>&1
 IPV6_GAME_CONSOLES_STATIC_IP="$(printf "%s\n" "$IPV6_GAME_CONSOLES_STATIC_IP" | sed "s/IPv6::/$IPV6_ADDRESS/g")" > /dev/null 2>&1
 IPV6_TORRENTBOX_STATIC_IP="$(printf "%s\n" "$IPV6_TORRENTBOX_STATIC_IP" | sed "s/IPv6::/$IPV6_ADDRESS/g")" > /dev/null 2>&1
 IPV6_OTHER_STATIC_IP="$(printf "%s\n" "$IPV6_OTHER_STATIC_IP" | sed "s/IPv6::/$IPV6_ADDRESS/g")" > /dev/null 2>&1
 
-## To check if there is a difference between the settings and the rules
+## Para comprobar si hay una diferencia entre la configuración y las reglas
 if [ "$CHAIN" = "FORWARD" ]; then
     CHECK_CHAIN="$(grep "jump" /etc/nftables.d/00-rules.nft | sed '1q;d' | grep "    " > /dev/null 2>&1 && echo "FORWARD")" > /dev/null 2>&1
 elif [ "$CHAIN" != "FORWARD" ]; then
@@ -884,17 +884,17 @@ if [ "$CHAIN" != "$CHECK_CHAIN" ] || \
 cat << RULES > /tmp/00-rules.nft
 
 
-### DSCP marking rules ###
+### Regla de marcado DSCP ###
 
 
 chain pre_mangle_forward {
     type filter hook forward priority mangle -1; policy accept;
 
-    ## Wash all ISP DSCP marks from ingress traffic and set these rules as the default for unmarked traffic
+    ## Lave todas las marcas DSCP del ISP del tráfico de entrada y establezca estas reglas como predeterminadas para el tráfico no marcado
     meta nfproto ipv4 counter ip dscp set cs1 comment "Wash all ISP DSCP marks to CS1 (IPv4)"
     meta nfproto ipv6 counter ip6 dscp set cs1 comment "Wash all ISP DSCP marks to CS1 (IPv6)"
 
-    ## Arrange ruleset
+    ## Organizar conjunto de reglas
     meta nfproto ipv4 jump dscp_marking_ports_ipv4 comment "DSCP marking rules for ports (IPv4)"
     meta nfproto ipv6 jump dscp_marking_ports_ipv6 comment "DSCP marking rules for ports (IPv6)"
     meta nfproto ipv4 jump dscp_marking_ip_addresses_ipv4 comment "DSCP marking rules for IP addresses (IPv4)"
